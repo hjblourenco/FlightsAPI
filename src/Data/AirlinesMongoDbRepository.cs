@@ -45,7 +45,7 @@ public class AirlinesMongoDbRepository : IAirlinesRepository
     public async Task<bool> AirlineExistsByNameAsync(string name)
     {
 
-
+        
 
         _logger.LogDebug("--> AirlineExistsByNameAsync repository");     
 
@@ -76,6 +76,12 @@ public class AirlinesMongoDbRepository : IAirlinesRepository
         var filter = Builders<BsonDocument>.Filter.Eq("_id", airlineId.ToString());
         var airline = await _context.FindAsync(filter);
         var airlineResult = await airline.FirstOrDefaultAsync();
+
+        if (airlineResult == null)
+        {
+            _logger.LogInformation($"Airline with id: {airlineId} was not found when accessing GetAirlineAsync");
+            return null;
+        }
         var airlineObject = BsonSerializer.Deserialize<Airline>(airlineResult);
 
         return airlineObject;
