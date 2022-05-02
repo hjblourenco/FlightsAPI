@@ -253,4 +253,21 @@ public class FlightsControllerTest
         Assert.Equal(resultDelete.StatusCode , StatusCodes.Status404NotFound);
     }
 
+    [Fact]
+    public void GetAllFlightsController_WithSearchString()
+    {
+        var flightToGet = FlightObject.CreateTestFlightObject();
+        var flightToGetDto = _mapper.Map<FlightCreateDto>(flightToGet);
+        _flightsController.AddFlight(flightToGetDto);
+
+        var actionResult = _flightsController.GetAllFlights(flightToGetDto.FlightNumber);
+        var result = actionResult.Result as OkObjectResult;
+        var flightReadDto = _mapper.Map<List<FlightReadDto>>(result.Value);
+
+        Assert.Equal(result.StatusCode , StatusCodes.Status200OK);
+        Assert.Equal(flightReadDto.Count , 1);
+
+    }
+
+
 }
