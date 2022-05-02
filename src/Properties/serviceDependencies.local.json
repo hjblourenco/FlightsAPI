@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "compute.function.windows1": {
+      "group": "connections",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Web/sites/FlightsAPIVsCode",
+      "type": "compute.function.windows.consumption"
+    }
+  }
+}

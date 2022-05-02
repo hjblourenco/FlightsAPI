@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "compute.function.windows1": {
+      "group": "connections",
+      "type": "compute.function.windows"
+    }
+  }
+}
