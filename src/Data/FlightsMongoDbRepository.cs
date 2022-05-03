@@ -7,9 +7,9 @@ public class FlightsMongoDbRepository : IFlightsRepository
 
     private readonly IMongoCollection<BsonDocument> _context;
 
-    public FlightsMongoDbRepository()
-    {
-    }
+    // public FlightsMongoDbRepository()
+    // {
+    // }
 
     public FlightsMongoDbRepository(MongoDbContext context)
     {

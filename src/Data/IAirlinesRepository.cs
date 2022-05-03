@@ -1,6 +1,6 @@
 public interface IAirlinesRepository
 {
-    public Task<Airline> GetAirlineAsync(Guid airlineId);
+    public Task<Airline?> GetAirlineAsync(Guid airlineId);
 
     public Task<IEnumerable<Airline>> GetAirlineByNameAsync(string name);
 

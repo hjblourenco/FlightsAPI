@@ -9,7 +9,7 @@ public class Airline
     [BsonElement("Name")]
     [BsonRepresentation(MongoDB.Bson.BsonType.String)]
     [BsonRequired]
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 
 
 }

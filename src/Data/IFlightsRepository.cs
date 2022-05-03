@@ -2,7 +2,7 @@ public interface IFlightsRepository
 {
     public IEnumerable<Flight> GetAllFlights();
 
-    public Flight GetFlightById(Guid flightId);
+    public Flight? GetFlightById(Guid flightId);
 
     public void AddFlight(Flight flight);
 

@@ -8,15 +8,15 @@ public class FlightSearchDto
     public Guid AirlineId { get; set; }
     public string? FlightNumber { get; set; }
     public string? ReservationCode { get; set; }
-    public string Fare { get; set; }
-    public string DepartureAirport { get; set; }
-    public string DepartureCountry { get; set; }
-    public string ArrivalAirport { get; set; }
-    public string ArrivalCountry { get; set; }
-    public string DepartureDate { get ; set; }
-    public string ArrivalDate { get; set; }
-    public string Price { get; set; }
-    public string PricePaid { get; set; }
-    public string PaymentType { get ; set; }    
+    public string Fare { get; set; } = String.Empty;
+    public string DepartureAirport { get; set; } = String.Empty;
+    public string DepartureCountry { get; set; } = String.Empty;
+    public string ArrivalAirport { get; set; } = String.Empty;
+    public string ArrivalCountry { get; set; } = String.Empty;
+    public string DepartureDate { get ; set; } = String.Empty;
+    public string ArrivalDate { get; set; } = String.Empty;
+    public string Price { get; set; } = String.Empty;
+    public string PricePaid { get; set; } = String.Empty;
+    public string PaymentType { get ; set; } = String.Empty;    
 
 }

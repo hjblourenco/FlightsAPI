@@ -8,9 +8,9 @@ public class AirlinesMongoDbRepository : IAirlinesRepository
     private readonly IMongoCollection<BsonDocument> _context;
     private readonly ILogger<AirlinesMongoDbRepository> _logger;
 
-    public AirlinesMongoDbRepository()
-    {
-    }
+    // public AirlinesMongoDbRepository()
+    // {
+    // }
 
     public AirlinesMongoDbRepository(MongoDbContext context,ILogger<AirlinesMongoDbRepository> logger)
     {
@@ -69,7 +69,7 @@ public class AirlinesMongoDbRepository : IAirlinesRepository
         _logger.LogDebug($"Delete airline repository return: {flightDeleteResult.ToString()}");
     }
 
-    public async Task<Airline> GetAirlineAsync(Guid airlineId)
+    public async Task<Airline?> GetAirlineAsync(Guid airlineId)
     {
         _logger.LogDebug("--> GetAirlineAsync repository");     
 
