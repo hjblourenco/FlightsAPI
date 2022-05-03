@@ -1,3 +1,7 @@
+
+using Helpers.Metadata;
+
+namespace Helpers.Pagination;
     public class Pagination<T> : List<T>
     {
         //public int CurrentPage { get; private set; }
