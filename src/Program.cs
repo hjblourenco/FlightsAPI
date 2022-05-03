@@ -30,9 +30,14 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddSwaggerGen();
 
+//Health Check service
+builder.Services.AddHealthChecks();
 
 // Teste para fazer commit e agora no devops
 var app = builder.Build();
+
+//Health Check
+app.MapHealthChecks("/health");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
