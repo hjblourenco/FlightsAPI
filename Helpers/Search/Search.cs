@@ -25,12 +25,15 @@ public class Search<T> : ISearch<T>
         {
             var flag=false;
             //Properties cycle
+            if (entity==null)
+                continue;
+
             foreach (var property in entity.GetType().GetProperties())
             {
 
                 if ( property.PropertyType == typeof(string))
                 {
-                    if (property.GetValue(entity)!=null && property.GetValue(entity).ToString().ToLower().Contains(searchString.ToLower()))
+                    if (property.GetValue(entity)!=null && (property.GetValue(entity)?.ToString() ?? "").ToLower().Contains(searchString.ToLower()))
                     {
                         flag=true;
                         break;

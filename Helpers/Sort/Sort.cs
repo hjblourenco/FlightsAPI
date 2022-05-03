@@ -7,7 +7,8 @@ public class Sort<T> : ISort<T>
     public IQueryable<T> ApplySort(IQueryable<T> entities, string orderByQueryString)
     {
         if (entities==null || !entities.Any())
-            return entities;
+            return Enumerable.Empty<T>().AsQueryable();
+            
         if (string.IsNullOrWhiteSpace(orderByQueryString))
         {
             return entities;

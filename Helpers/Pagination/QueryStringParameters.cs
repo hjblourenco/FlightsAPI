@@ -1,3 +1,4 @@
+namespace Helpers.QueryStringParameters;
 public  class QueryStringParameters
 {
     const int maxPageSize = 50;

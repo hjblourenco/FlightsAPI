@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using Helpers.Pagination;
+using Helpers.QueryStringParameters;
 using Xunit;
 
 public class PaginationHelper
