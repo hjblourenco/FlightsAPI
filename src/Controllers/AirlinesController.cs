@@ -21,10 +21,50 @@ public class AirlinesController : ControllerBase
         }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<AirlineReadDto>>> GetAllAirlines()
+    public async Task<ActionResult<IEnumerable<AirlineReadDto>>> GetAllAirlines([FromQuery] string? searchString=null,[FromQuery] string? orderBy=null, [FromQuery] QueryStringParameters? queryStringParameters=null)
     {
         var airlines = await _airlinesRepository.GetAllAirlinesAsync();
         var airlinesReadDto = _mapper.Map<IEnumerable<AirlineReadDto>>(airlines);
+
+
+
+        //Search
+        //api/flights?searchString=[SearchString]
+        if (searchString!=null)
+        {
+
+            var airlineSearchDto = _mapper.Map<IEnumerable<AirlineSearchDto>>(airlines);
+            ISearch<AirlineSearchDto> search =  new Search<AirlineSearchDto>();
+            var airlinesSearchDto = search.ApplySearch(airlineSearchDto, searchString);
+            //Map to the return Dto
+            airlinesReadDto = _mapper.Map<IEnumerable<AirlineReadDto>>(airlinesSearchDto);
+        }
+
+        //Sort
+        //api/flights?orderBy=[OrderByQueryString]
+        //Separate by , (comma) to sort by multiple properties and after the property name add " desc" to sort descending
+        if (orderBy != null)
+        {
+            ISort<AirlineReadDto> _sortHelper = new Sort<AirlineReadDto>();
+            airlinesReadDto = _sortHelper.ApplySort(airlinesReadDto.AsQueryable<AirlineReadDto>(), orderBy).ToList();
+        }
+
+        //The classes tha apply the paging algorythm
+        //https://code-maze.com/paging-aspnet-core-webapi/
+        //In my tests It will work with wrong parameters
+        //api/flights?pageNumber=[PageNumber]&pageSize=[PageSize]  
+        Pagination<AirlineReadDto> flightsPaged;
+        if (queryStringParameters!=null)
+        {
+            flightsPaged = Pagination<AirlineReadDto>.ToPagedList(
+                airlinesReadDto.AsQueryable<AirlineReadDto>(),
+                queryStringParameters.PageNumber,
+                queryStringParameters.PageSize
+            );
+
+            airlinesReadDto = flightsPaged.Items;
+        }
+
         return Ok(airlinesReadDto);
     }
 
