@@ -1,4 +1,7 @@
 using AutoMapper;
+using Helpers.Pagination;
+using Helpers.QueryStringParameters;
+//using Helpers.QueryStringParameters;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -14,11 +17,11 @@ public class AirlinesController : ControllerBase
         IAirlinesRepository airlinesRepository,
         IMapper mapper,
         ILogger<AirlinesController> logger)
-        {
-            _airlinesRepository = airlinesRepository;
-            _mapper = mapper;
-            _logger = logger;
-        }
+    {
+        _airlinesRepository = airlinesRepository;
+        _mapper = mapper;
+        _logger = logger;
+    }
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<AirlineReadDto>>> GetAllAirlines([FromQuery] string? searchString=null,[FromQuery] string? orderBy=null, [FromQuery] QueryStringParameters? queryStringParameters=null)

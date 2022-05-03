@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <PackageId>PageSearchSort.Helpers</PackageId>
+    <Title>PageSearchSort.Helpers</Title>
+    <Version>1.0.0</Version>
+    <Authors>Helder Lourenço</Authors>
+    <Company>Helder Lourenço</Company>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>Helpers for Pagination, Search and Sort especialy for API's but can be used on anything</Description>
+  <license>LICENSE.txt</license>
+
+  </PropertyGroup>
+  
+
+  <ItemGroup>
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.18" />
+  </ItemGroup>  
+</Project>

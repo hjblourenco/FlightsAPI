@@ -1,5 +1,3 @@
-    namespace Helpers.Metadata;
-    
     public class MetaData
     {
         public int CurrentPage { get; set; }
