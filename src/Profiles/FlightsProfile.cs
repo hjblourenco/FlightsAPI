@@ -21,6 +21,9 @@ public class FlightsProfile : Profile
         CreateMap<Airline,AirlineCreateDto>().ReverseMap();
         CreateMap<Airline,AirlineReadDto>();
         CreateMap<AirlineUpdateDto,Airline>();
+        CreateMap<Airline,AirlineSearchDto>();        
+        CreateMap<AirlineSearchDto,AirlineReadDto>();     
+
 
     }
 }

@@ -74,6 +74,8 @@ public class AirlinesControllerTest
 
         var airline = _mapper.Map<AirlineCreateDto>(airlineToAdd); 
         _airlinesController.CreateAirline(airline);
+
+        Task.Delay(500).Wait();
         //Act
         var result = await _airlinesController.GetAirlineById(airlineToAdd.AirlineId);
         //Assert
@@ -173,14 +175,19 @@ public class AirlinesControllerTest
     [Fact]
     public void DeleteAirline_ReturnsNoContent()
     {
-        //Arrange
-        var airlineToAdd = AirlinesObjects.CreateTestAirlineObject();
-        var airline = _mapper.Map<AirlineCreateDto>(airlineToAdd);
-        _airlinesController.CreateAirline(airline);
-        //Act
-        var result = _airlinesController.DeleteAirline(airlineToAdd.AirlineId);
-        //Assert
-        Assert.IsType<NoContentResult>(result);
+
+        Task t = new Task(() =>
+        {   
+            //Arrange
+            var airlineToAdd = AirlinesObjects.CreateTestAirlineObject();
+            var airline = _mapper.Map<AirlineCreateDto>(airlineToAdd);
+            _airlinesController.CreateAirline(airline);
+            //Act
+            var result = _airlinesController.DeleteAirline(airlineToAdd.AirlineId);
+            //Assert
+            Assert.IsType<NoContentResult>(result);
+        });
+        t.RunSynchronously();              
     }
 
     [Fact]

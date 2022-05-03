@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/Flights.csproj",
+                "${workspaceFolder}/src/Flights.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/Flights.csproj",
+                "${workspaceFolder}/src/Flights.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/Flights.csproj"
+                "${workspaceFolder}/src/Flights.csproj"
             ],
             "problemMatcher": "$msCompile"
         },
@@ -95,7 +95,7 @@
             "type": "func",
             "dependsOn": "build (functions)",
             "options": {
-                "cwd": "${workspaceFolder}/bin/Debug/net6.0"
+                "cwd": "${workspaceFolder}/src/bin/Debug/net6.0"
             },
             "command": "host start",
             "isBackground": true,
