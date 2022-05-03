@@ -13,7 +13,7 @@ public class FlightsProfile : Profile
             .ForMember(dest => dest.ArrivalDate  , opt => opt.MapFrom(src => src.ArrivalDate  .ToLongDateString()))
             .ForMember(dest => dest.Price        , opt => opt.MapFrom(src => src.Price        .ToString()))
             .ForMember(dest => dest.PricePaid    , opt => opt.MapFrom(src => src.PricePaid    .ToString()))
-            .ForMember(dest => dest.PaymentType  , opt => opt.MapFrom(src => Enum.GetName(src.PaymentType) .ToString()));
+            .ForMember(dest => dest.PaymentType  , opt => opt.MapFrom(src => (Enum.GetName(src.PaymentType) ?? "") .ToString()));
 
         ;
         CreateMap<FlightSearchDto,FlightReadDto>();
