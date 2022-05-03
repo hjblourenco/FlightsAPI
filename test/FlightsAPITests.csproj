@@ -24,12 +24,12 @@
   </ItemGroup>
 
   <ItemGroup>
-		  <ProjectReference Include="..\..\src\Flights.csproj" />
+		  <ProjectReference Include="..\src\Flights.csproj" />
       <!-- <InternalsVisibleTo Include="..\..\src\Services\Flights\Flights.csproj" /> -->
 	</ItemGroup>
       
   <ItemGroup>      
-      <InternalsVisibleTo Include="..\..\src\Flights.csproj" />
+      <InternalsVisibleTo Include="..\src\Flights.csproj" />
   </ItemGroup> 
   <PropertyGroup>
     <ProduceReferenceAssemblyInOutDir>true</ProduceReferenceAssemblyInOutDir>
