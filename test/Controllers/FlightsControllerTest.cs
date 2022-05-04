@@ -117,7 +117,7 @@ public class FlightsControllerTest
             Assert.Equal(resultBefore.StatusCode , 200);
 
             //Get if the GetAllFlights() method return status code (201 - Created) is working 
-            Assert.Equal(result.StatusCode , 201);
+            Assert.Equal(result?.StatusCode , 201);
             //Assert if the id of added object is the same as the id of the object that was added
             Assert.Equal(((FlightReadDto)result.Value).FlightId , flightToAdd.FlightId);
 
@@ -137,7 +137,7 @@ public class FlightsControllerTest
         var actionResult = _flightsController.AddFlight(flightCreateDto);
         var result = actionResult.Result as BadRequestObjectResult;
 
-        Assert.Equal(result.StatusCode , StatusCodes.Status400BadRequest);
+        Assert.Equal(result?.StatusCode , StatusCodes.Status400BadRequest);
 
     }
 
@@ -152,9 +152,9 @@ public class FlightsControllerTest
 
         var actionResultGet = _flightsController.GetFlightById(flightId);
         var resultGet = actionResultGet.Result as OkObjectResult;
-        var flightGetDto = _mapper.Map<FlightReadDto>(resultGet.Value);
+        var flightGetDto = _mapper.Map<FlightReadDto>(resultGet?.Value);
 
-        Assert.Equal(resultGet.StatusCode , StatusCodes.Status200OK);
+        Assert.Equal(resultGet?.StatusCode , StatusCodes.Status200OK);
         Assert.Equal(flightGetDto.FlightId , flightId);
     }
 
@@ -166,7 +166,7 @@ public class FlightsControllerTest
         var actionResultGet = _flightsController.GetFlightById(Guid.Empty);
         var resultGet = actionResultGet.Result as NotFoundResult;
 
-        Assert.Equal(StatusCodes.Status404NotFound ,  resultGet.StatusCode);
+        Assert.Equal(StatusCodes.Status404NotFound ,  resultGet?.StatusCode);
     }
 
     [Fact]
@@ -186,12 +186,12 @@ public class FlightsControllerTest
 
         var actionResultGet = _flightsController.GetFlightById(flightId);
         var resultGet = actionResultGet.Result as OkObjectResult;
-        var flightGetDto = _mapper.Map<FlightReadDto>(resultGet.Value);
+        var flightGetDto = _mapper.Map<FlightReadDto>(resultGet?.Value);
 
-        Assert.Equal(resultGet.StatusCode , 200);
+        Assert.Equal(resultGet?.StatusCode , 200);
        
        //NoContent status code 204
-        Assert.Equal(resultUpdate.StatusCode , 204);
+        Assert.Equal(resultUpdate?.StatusCode , 204);
 
         Assert.Equal(flightGetDto.FlightId , flightId);
         Assert.Equal(flightGetDto.DepartureAirport , flightToUpdate2.DepartureAirport);
@@ -211,7 +211,7 @@ public class FlightsControllerTest
         var actionResult = _flightsController.UpdateFlight(Guid.Empty, flightToUpdateDto);
         var result = actionResult as BadRequestObjectResult;
 
-        Assert.Equal(result.StatusCode , StatusCodes.Status400BadRequest);
+        Assert.Equal(result?.StatusCode , StatusCodes.Status400BadRequest);
     }
 
     [Fact]
@@ -240,8 +240,8 @@ public class FlightsControllerTest
         var actionResultGet = _flightsController.GetFlightById(flightId);
         var resultGet = actionResultGet.Result as NotFoundResult;
 
-        Assert.Equal(resultGet.StatusCode , StatusCodes.Status404NotFound);
-        Assert.Equal(resultDelete.StatusCode , StatusCodes.Status204NoContent);
+        Assert.Equal(resultGet?.StatusCode , StatusCodes.Status404NotFound);
+        Assert.Equal(resultDelete?.StatusCode , StatusCodes.Status204NoContent);
     }
 
     [Fact]
@@ -250,7 +250,7 @@ public class FlightsControllerTest
         var actionResultDelete = _flightsController.DeleteFlight(Guid.Empty);
         var resultDelete = actionResultDelete as NotFoundResult;
 
-        Assert.Equal(resultDelete.StatusCode , StatusCodes.Status404NotFound);
+        Assert.Equal(resultDelete?.StatusCode , StatusCodes.Status404NotFound);
     }
 
     [Fact]
@@ -262,9 +262,9 @@ public class FlightsControllerTest
 
         var actionResult = _flightsController.GetAllFlights(flightToGetDto.FlightNumber);
         var result = actionResult.Result as OkObjectResult;
-        var flightReadDto = _mapper.Map<List<FlightReadDto>>(result.Value);
+        var flightReadDto = _mapper.Map<List<FlightReadDto>>(result?.Value);
 
-        Assert.Equal(result.StatusCode , StatusCodes.Status200OK);
+        Assert.Equal(result?.StatusCode , StatusCodes.Status200OK);
         Assert.Equal(flightReadDto.Count , 1);
 
     }
