@@ -21,8 +21,8 @@
 **/src/obj
 **/src/secrets.dev.yaml
 **/src/values.dev.yaml
-**/test/FlightsTests/obj
-
+**/test/obj
+**/test/bin
 
 LICENSE
 README.md

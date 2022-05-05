@@ -1,3 +1,6 @@
+using System.Security.Cryptography.X509Certificates;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,9 +15,18 @@ using var logger = new LoggerConfiguration()
 
 logger.Information("Flights API started!");
 
+///Azure Key Vault acess - I Used this to practice the use of it in an application
+// https://docs.microsoft.com/pt-pt/azure/key-vault/secrets/quick-create-net
+string keyVaultUri = configuration.GetSection("AzureKeyVault:Name").Value;
+var client = new SecretClient(new Uri(keyVaultUri), new DefaultAzureCredential());
+
+
+
 builder.Logging.AddSerilog(logger);
 
 //End of Logging
+
+builder.Services.AddSingleton<SecretClient>(client);
 
 builder.Services.AddScoped<MongoDbContext>();
 

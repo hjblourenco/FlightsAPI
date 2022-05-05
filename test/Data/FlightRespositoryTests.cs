@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 using Microsoft.Extensions.Configuration;
 using Xunit;
 
@@ -16,7 +18,13 @@ namespace FlightRespositoryTests
         public FlightRespositoryTests()
         {
             IConfigurationRoot configuration = RepositoryTests.RepositoryTestsConstructor();
-            _context = new MongoDbContext(configuration);
+
+            ///Azure Key Vault acess - I Used this to practice the use of it in an application
+            // https://docs.microsoft.com/pt-pt/azure/key-vault/secrets/quick-create-net
+            string keyVaultUri = configuration.GetSection("AzureKeyVault:Name").Value;
+            var client = new SecretClient(new Uri(keyVaultUri), new DefaultAzureCredential());
+
+            _context = new MongoDbContext(configuration,client);
             _flightRepository = new FlightsMongoDbRepository(_context);
 
         }

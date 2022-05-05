@@ -1,4 +1,6 @@
 using AutoMapper;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -13,23 +15,17 @@ public class AirlinesControllerTest
     public AirlinesControllerTest()
     {
             //Creating repository
-            var myConfiguration = new Dictionary<string, string>
-            {
-                {"MongoDbConnectionString:ConnectionString",  "mongodb+srv://<username>:<password>@cluster0.rljqx.mongodb.net/<database>?retryWrites=true&w=majority"},
-                {"MongoDbConnectionString:MongoDbUserName",   "flights"},
-                {"MongoDbConnectionString:MongoDbPassword",   "flights"},
-                {"MongoDbConnectionString:MongoDbDatabase",   "FlightsTests"},
-                {"MongoDbConnectionString:MongoDbFlightsCollection", "FlightsTests"},
-                {"MongoDbConnectionString:MongoDbAirlinesCollection", "AirlinesTests"}
-            };
-            var configuration = new ConfigurationBuilder()
-                .AddInMemoryCollection(myConfiguration)
-                .Build();
+            IConfigurationRoot configuration = RepositoryTests.RepositoryTestsConstructor();
 
             var mockRepositoryLogger = new Mock<ILogger<AirlinesMongoDbRepository>>();
             ILogger<AirlinesMongoDbRepository> _loggerRepository = mockRepositoryLogger.Object;
 
-            MongoDbContext _context = new MongoDbContext(configuration);
+            ///Azure Key Vault acess - I Used this to practice the use of it in an application
+            // https://docs.microsoft.com/pt-pt/azure/key-vault/secrets/quick-create-net
+            string keyVaultUri = configuration.GetSection("AzureKeyVault:Name").Value;
+            var client = new SecretClient(new Uri(keyVaultUri), new DefaultAzureCredential());
+
+            MongoDbContext _context = new MongoDbContext(configuration,client);
             var _airlinesRepository = new AirlinesMongoDbRepository(_context, _loggerRepository);
             //End of flights repository
 

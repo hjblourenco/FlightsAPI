@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -15,7 +17,14 @@ public class AirlinesRepositoryTests
     public AirlinesRepositoryTests()
     {
             IConfigurationRoot configuration = RepositoryTests.RepositoryTestsConstructor();
-            _context = new MongoDbContext(configuration);  
+            
+            ///Azure Key Vault acess - I Used this to practice the use of it in an application
+            // https://docs.microsoft.com/pt-pt/azure/key-vault/secrets/quick-create-net
+            string keyVaultUri = configuration.GetSection("AzureKeyVault:Name").Value;
+            var client = new SecretClient(new Uri(keyVaultUri), new DefaultAzureCredential());
+            
+            
+            _context = new MongoDbContext(configuration,client);  
 
             var mock = new Mock<ILogger<AirlinesMongoDbRepository>>();
             ILogger<AirlinesMongoDbRepository> _logger = mock.Object;          

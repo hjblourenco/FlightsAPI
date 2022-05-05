@@ -8,7 +8,6 @@ using System.Linq.Dynamic.Core;
 
 public class Search<T> : ISearch<T> 
 {
-
     public IEnumerable<T>? ApplySearch(IEnumerable<T>? entities, string? searchString)
     {
         
@@ -49,8 +48,6 @@ public class Search<T> : ISearch<T>
         }
         return searchedEntities;
     }
-
-
 }
 
 
