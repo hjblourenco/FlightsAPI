@@ -15,17 +15,31 @@ using var logger = new LoggerConfiguration()
 
 logger.Information("Flights API started!");
 
+
 ///Azure Key Vault acess - I Used this to practice the use of it in an application
 // https://docs.microsoft.com/pt-pt/azure/key-vault/secrets/quick-create-net
 string keyVaultUri = configuration.GetSection("AzureKeyVault:Name").Value;
-var client = new SecretClient(new Uri(keyVaultUri), new DefaultAzureCredential());
 
 
+const string tenantId = "9be98aa3-d3a1-4dad-ad56-09bafd151bec";
+const string clientId = "7369d4d4-5419-4447-9615-3c7b70739f69";
+const string clientSecret = "Jwa8Q~ZnUfEXxPaUPHomYhi931byJS94PQkCydrv";
+var keyvaultCredentials = new ClientSecretCredential(tenantId, clientId, clientSecret);
+
+
+
+
+
+
+
+var client = new SecretClient(new Uri(keyVaultUri), keyvaultCredentials);
+
+
+//var client = new SecretClient(new Uri(keyVaultUri), new DefaultAzureCredential());
 
 builder.Logging.AddSerilog(logger);
 
 //End of Logging
-
 builder.Services.AddSingleton<SecretClient>(client);
 
 builder.Services.AddScoped<MongoDbContext>();
