@@ -31,7 +31,7 @@ public class FlightsControllerTest
 
             MongoDbContext _context = new MongoDbContext(configuration,client);
             _flightRepository = new FlightsMongoDbRepository(_context);
-            //End of flights repository
+
 
             //auto mapper configuration, the same one as in main project, and I created the reverseMap to adjust some tests
             var configurationIMApper = new MapperConfiguration(cfg =>

@@ -166,7 +166,7 @@ public class AirlinesRepositoryTests
     [Fact]
     public void DeleteAirlineAsyncTest()
     {
-        Task.Delay(1000).Wait();
+        //Task.Delay(1000).Wait();
         //This is added because of the async can wait time and other taks can be conpleted in the middle, and this runs sync
         Task t = new Task(() =>
         {

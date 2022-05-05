@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Moq;
+using System;
+using System.Threading.Tasks;
 using Xunit;
 
 public class AirlinesControllerTest
@@ -27,7 +29,6 @@ public class AirlinesControllerTest
 
             MongoDbContext _context = new MongoDbContext(configuration,client);
             var _airlinesRepository = new AirlinesMongoDbRepository(_context, _loggerRepository);
-            //End of flights repository
 
             //auto mapper configuration, the same one as in main project, and I created the reverseMap to adjust some tests
             var configurationIMapper = new MapperConfiguration(cfg =>
@@ -65,17 +66,22 @@ public class AirlinesControllerTest
     [Fact]
     public async Task GetAirlineById_ReturnsOk()
     {
-        //Arrange
-        var airlineToAdd = AirlinesObjects.CreateTestAirlineObject();
+        //This is added because of the async can wait time and other taks can be conpleted in the middle, and this runs sync
+        Task t = new Task( async () =>
+        {     
+            //Arrange
+            var airlineToAdd = AirlinesObjects.CreateTestAirlineObject();
 
-        var airline = _mapper.Map<AirlineCreateDto>(airlineToAdd); 
-        _airlinesController.CreateAirline(airline);
+            var airline = _mapper.Map<AirlineCreateDto>(airlineToAdd); 
+            _airlinesController.CreateAirline(airline);
 
-        Task.Delay(500).Wait();
-        //Act
-        var result = await _airlinesController.GetAirlineById(airlineToAdd.AirlineId);
-        //Assert
-        Assert.IsType<OkObjectResult>(result.Result);
+            //Task.Delay(500).Wait();
+            //Act
+            var result = await _airlinesController.GetAirlineById(airlineToAdd.AirlineId);
+            //Assert
+            Assert.IsType<OkObjectResult>(result.Result);
+        });
+        t.RunSynchronously();                
     }
 
     [Fact]
@@ -126,7 +132,7 @@ public class AirlinesControllerTest
             var airlineToAdd = AirlinesObjects.CreateTestAirlineObject();
             var airline = _mapper.Map<AirlineCreateDto>(airlineToAdd);        
             _airlinesController.CreateAirline(airline);
-            Task.Delay(2000).Wait();
+            //Task.Delay(500).Wait();
             var airlineToUpdate = AirlinesObjects.CreateTestAirlineObject();
             var airlineUpdate = _mapper.Map<AirlineUpdateDto>(airlineToUpdate);
             airlineUpdate.AirlineId=  airline.AirlineId;
@@ -141,18 +147,24 @@ public class AirlinesControllerTest
     [Fact]
     public void UpdateAirline_ReturnsBadRequest()
     {
-        //Arrange
-        var airlineToAdd = AirlinesObjects.CreateTestAirlineObject();
-        var airline = _mapper.Map<AirlineCreateDto>(airlineToAdd);
-        _airlinesController.CreateAirline(airline);
-        Task.Delay(250).Wait();
-        var airlineToUpdate = AirlinesObjects.CreateTestAirlineObject();
-        var airlineUpdate = _mapper.Map<AirlineUpdateDto>(airlineToUpdate);
-        airlineUpdate.Name = null;
-        //Act
-        var result = _airlinesController.UpdateAirline(airlineToAdd.AirlineId, airlineUpdate);
-        //Assert
-        Assert.IsType<BadRequestObjectResult>(result);
+        //This is added because of the async can wait time and other taks can be conpleted in the middle, and this runs sync
+        Task t = new Task(() =>
+        { 
+
+            //Arrange
+            var airlineToAdd = AirlinesObjects.CreateTestAirlineObject();
+            var airline = _mapper.Map<AirlineCreateDto>(airlineToAdd);
+            _airlinesController.CreateAirline(airline);
+            //Task.Delay(250).Wait();
+            var airlineToUpdate = AirlinesObjects.CreateTestAirlineObject();
+            var airlineUpdate = _mapper.Map<AirlineUpdateDto>(airlineToUpdate);
+            airlineUpdate.Name = null;
+            //Act
+            var result = _airlinesController.UpdateAirline(airlineToAdd.AirlineId, airlineUpdate);
+            //Assert
+            Assert.IsType<BadRequestObjectResult>(result);
+        });
+        t.RunSynchronously();               
     }
 
     [Fact]

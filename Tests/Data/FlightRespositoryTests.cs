@@ -10,12 +10,12 @@ using Xunit;
 
 namespace FlightRespositoryTests
 {
-    public class FlightRespositoryTests
+    public class FlightRepositoryTests
     {
             private readonly MongoDbContext _context;
             private readonly FlightsMongoDbRepository _flightRepository;
 
-        public FlightRespositoryTests()
+        public FlightRepositoryTests()
         {
             IConfigurationRoot configuration = RepositoryTests.RepositoryTestsConstructor();
 
