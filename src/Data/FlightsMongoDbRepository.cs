@@ -102,9 +102,6 @@ public class FlightsMongoDbRepository : IFlightsRepository
 
         var filter = Builders<BsonDocument>.Filter.Eq("_id", flightId.ToString());
         var flightUpdateResult = _context.FindOneAndReplace(filter, flight.ToBsonDocument());
-        //var flightUpdateResult = _context.UpdateOne(filter, flight.ToBsonDocument());
 
-
-        Console.WriteLine("--> UpdateFlight DONE");
     }
 }
