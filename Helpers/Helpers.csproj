@@ -15,7 +15,6 @@
   <license>LICENSE.txt</license>
 
   </PropertyGroup>
-  
 
   <ItemGroup>
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.18" />
