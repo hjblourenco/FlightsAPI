@@ -94,8 +94,8 @@ public class AirlinesRepositoryTests
             var airline = AirlinesObjects.CreateTestAirlineObject();
             _airlinesRepository.AddAirlineAsync(airline);
 
-            Airline airlineFromGetAirline = _airlinesRepository.GetAirlineAsync(airline.AirlineId).Result;
-            Assert.Equal(airline.AirlineId, airlineFromGetAirline.AirlineId);
+            Airline? airlineFromGetAirline = _airlinesRepository.GetAirlineAsync(airline.AirlineId).Result;
+            Assert.Equal(airline.AirlineId, airlineFromGetAirline?.AirlineId);
         });
         t.RunSynchronously();
 

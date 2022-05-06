@@ -40,7 +40,7 @@ using Xunit;
             var searchAlgorythmResult = Search.ApplySearch(TestListEnumerable,"bb");
 
 
-            Assert.Equal(1, searchAlgorythmResult.Count());
+            Assert.Equal(1, searchAlgorythmResult?.Count());
         }
 
         [Fact]
@@ -75,7 +75,7 @@ using Xunit;
             var searchAlgorythmResult = Search.ApplySearch(TestListEnumerable,TestString);
 
 
-            Assert.Equal(66, searchAlgorythmResult.Count());
+            Assert.Equal(66, searchAlgorythmResult?.Count());
         }
 
         [Fact]
@@ -107,7 +107,7 @@ using Xunit;
 
             var searchAlgorythmResult = Search.ApplySearch(TestListEnumerable,TestString);
 
-            Assert.Equal(0, searchAlgorythmResult.Count());
+            Assert.Equal(0, searchAlgorythmResult?.Count());
         }
 
         [Fact]
@@ -138,7 +138,7 @@ using Xunit;
 
             var searchAlgorythmResult = Search.ApplySearch(TestListEnumerable,TestString);
 
-            Assert.Equal(TestListEnumerable.Count(), searchAlgorythmResult.Count());   
+            Assert.Equal(TestListEnumerable.Count(), searchAlgorythmResult?.Count());   
         }
 
         [Fact]
@@ -171,7 +171,7 @@ using Xunit;
 
             var searchAlgorythmResult = Search.ApplySearch(TestListEnumerable,compareString);
 
-            Assert.Equal(1, searchAlgorythmResult.Count());   
+            Assert.Equal(1, searchAlgorythmResult?.Count());   
 
         }
 
@@ -211,7 +211,7 @@ using Xunit;
 
             var searchAlgorythmResult = Search.ApplySearch(TestListEnumerable,compareString);
 
-            Assert.Equal(1, searchAlgorythmResult.Count());   
+            Assert.Equal(1, searchAlgorythmResult?.Count());   
 
         } 
 

@@ -75,8 +75,8 @@ public class FlightsControllerTest
             var result = actionResult.Result as OkObjectResult;
             var getAllFlightsRepositoryMapped = _mapper.Map<IEnumerable<FlightReadDto>>(allFlightsRepository);
 
-            Assert.Equal(result.StatusCode , StatusCodes.Status200OK);
-            Assert.Equal(((IEnumerable<FlightReadDto>)result.Value).Count() , getAllFlightsRepositoryMapped.Count());        
+            Assert.Equal(result?.StatusCode , StatusCodes.Status200OK);
+            Assert.Equal(((IEnumerable<FlightReadDto>?)result.Value).Count() , getAllFlightsRepositoryMapped.Count());        
             Assert.Equal(((IEnumerable<FlightReadDto>)result.Value).First().FlightId , getAllFlightsRepositoryMapped.First().FlightId);
             Assert.Equal(((IEnumerable<FlightReadDto>)result.Value).Last().FlightId , getAllFlightsRepositoryMapped.Last().FlightId);
         });
@@ -219,7 +219,7 @@ public class FlightsControllerTest
         var actionResult = _flightsController.UpdateFlight(Guid.NewGuid(),flightToUpdateDto);
         var result = actionResult as BadRequestObjectResult;
 
-        Assert.Equal(result.StatusCode , StatusCodes.Status400BadRequest);
+        Assert.Equal(result?.StatusCode , StatusCodes.Status400BadRequest);
     }
 
     [Fact]
